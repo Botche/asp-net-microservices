@@ -9,9 +9,9 @@
     {
         public CatalogContext(IConfiguration configuration)
         {
-            var database = GetDatabase(configuration);
+            IMongoDatabase database = GetDatabase(configuration);
 
-            var collectionName = configuration.GetValue<string>("DatabaseSettings:CollectionName");
+            string collectionName = configuration.GetValue<string>("DatabaseSettings:CollectionName");
             this.Products = database.GetCollection<Product>(collectionName);
 
             CatalogContextSeed.SeedData(this.Products);
@@ -21,9 +21,9 @@
 
         private static IMongoDatabase GetDatabase(IConfiguration configuration)
         {
-            var connetionString = configuration.GetValue<string>("DatabaseSettings:ConnectionString");
-            var databaseName = configuration.GetValue<string>("DatabaseSettings:DatabaseName");
-            var client = new MongoClient(connetionString);
+            string connetionString = configuration.GetValue<string>("DatabaseSettings:ConnectionString");
+            string databaseName = configuration.GetValue<string>("DatabaseSettings:DatabaseName");
+            MongoClient client = new(connetionString);
 
             return client.GetDatabase(databaseName);
         }
