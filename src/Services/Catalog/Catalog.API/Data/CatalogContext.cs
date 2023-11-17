@@ -1,5 +1,6 @@
 ﻿namespace Catalog.API.Data
 {
+    using Catalog.API.Data.Seeds;
     using Catalog.API.Entities;
 
     using MongoDB.Driver;
@@ -13,7 +14,7 @@
             var collectionName = configuration.GetValue<string>("DatabaseSettings:CollectionName");
             this.Products = database.GetCollection<Product>(collectionName);
 
-            // CatalogContextSeed.SeedData(Products);
+            CatalogContextSeed.SeedData(this.Products);
         }
 
         public IMongoCollection<Product> Products { get; }
