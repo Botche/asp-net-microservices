@@ -7,13 +7,13 @@ services:
     ports:
       - "27017:27017"
     volumes:
-      - "mongo_data:/data/db" 
+      - mongo_data:/data/db
 
   catalog.api:
     container_name: catalog.api
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
-      - "DatabaseSettings:ConnectionString=mongodb://catalog.db:27017"
+      - DatabaseSettings__ConnectionString=mongodb://catalog.db:27017
     depends_on: 
       - catalog.db
     ports:

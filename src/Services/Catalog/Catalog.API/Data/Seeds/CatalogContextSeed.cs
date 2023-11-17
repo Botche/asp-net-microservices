@@ -14,7 +14,7 @@
 
             if (!existItem)
             {
-                collection.InsertMany(GetPreconfiguredData());
+                collection.InsertManyAsync(GetPreconfiguredData());
             }
         }
 
