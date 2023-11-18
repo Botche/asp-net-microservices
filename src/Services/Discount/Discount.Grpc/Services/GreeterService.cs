@@ -1,5 +1,3 @@
-using Discount.Grpc;
-
 using Grpc.Core;
 
 namespace Discount.Grpc.Services

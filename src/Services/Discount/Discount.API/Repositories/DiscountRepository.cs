@@ -1,7 +1,5 @@
 ﻿namespace Discount.API.Repositories
 {
-    using System.Runtime.InteropServices;
-
     using Dapper;
 
     using Discount.API.Entities;
