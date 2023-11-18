@@ -2,6 +2,8 @@
 {
     using System.Threading.Tasks;
 
+    using AutoMapper;
+
     using Discount.Grpc.Entities;
     using Discount.Grpc.Protos;
     using Discount.Grpc.Repositories;
@@ -14,11 +16,13 @@
     {
         private readonly IDiscountRepository discountRepository;
         private readonly ILogger logger;
+        private readonly IMapper mapper;
 
-        public DiscountService(IDiscountRepository discountRepository, ILogger logger)
+        public DiscountService(IDiscountRepository discountRepository, ILogger logger, IMapper mapper)
         {
             this.discountRepository = discountRepository;
             this.logger = logger;
+            this.mapper = mapper;
         }
 
         public override async Task<CouponModel> GetDiscount(GetDiscountRequest request, global::Grpc.Core.ServerCallContext context)
@@ -32,7 +36,13 @@
                 throw new RpcException(status);
             }
 
-            CouponModel couponModel = mapper.Map<CouponModel>(coupon);
+            this.logger.LogInformation(
+                "Discount is retrieved for ProductName: {productName}, Amount: {amount}", 
+                coupon.ProductName, 
+                coupon.Amount
+            );
+
+            CouponModel couponModel = this.mapper.Map<CouponModel>(coupon);
 
             return couponModel;
         }
