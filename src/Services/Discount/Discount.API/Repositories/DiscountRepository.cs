@@ -53,7 +53,7 @@
             using NpgsqlConnection connection = this.GetDatabaseConnection();
 
             Coupon coupon = await connection.QueryFirstOrDefaultAsync<Coupon>(
-                "SELECT * FROM coupons WHERE product_name = @ProductName",
+                "SELECT product_name AS ProductName, * FROM coupons WHERE product_name = @ProductName",
                 new { ProductName = productName }
             );
 
@@ -75,7 +75,7 @@
             using NpgsqlConnection connection = this.GetDatabaseConnection();
 
             int affectedRows = await connection.ExecuteAsync(
-                "UPDATE Coupon SET ProductName=@ProductName, Description = @Description, Amount = @Amount WHERE Id = @Id",
+                "UPDATE coupons SET product_name=@ProductName, description = @Description, amount = @Amount WHERE Id = @Id",
                 new
                 {
                     ProductName = coupon.ProductName,
