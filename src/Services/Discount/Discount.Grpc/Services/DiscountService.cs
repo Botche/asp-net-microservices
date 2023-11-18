@@ -25,7 +25,7 @@
             this.mapper = mapper;
         }
 
-        public override async Task<CouponModel> GetDiscount(GetDiscountRequest request, global::Grpc.Core.ServerCallContext context)
+        public override async Task<CouponModel> GetDiscount(GetDiscountRequest request, ServerCallContext context)
         {
             Coupon coupon = await this.discountRepository.GetDiscountAsync(request.ProductName);
 
@@ -37,8 +37,8 @@
             }
 
             this.logger.LogInformation(
-                "Discount is retrieved for ProductName: {productName}, Amount: {amount}", 
-                coupon.ProductName, 
+                "Discount is retrieved for ProductName: {productName}, Amount: {amount}",
+                coupon.ProductName,
                 coupon.Amount
             );
 
@@ -47,19 +47,45 @@
             return couponModel;
         }
 
-        public override Task<CouponModel> CreateDiscount(CreateDiscountRequest request, global::Grpc.Core.ServerCallContext context)
+        public override async Task<CouponModel> CreateDiscount(CreateDiscountRequest request, ServerCallContext context)
         {
-            return base.CreateDiscount(request, context);
+            Coupon couponToCreate = this.mapper.Map<Coupon>(request.Coupon);
+            await this.discountRepository.CreateDiscountAsync(couponToCreate);
+
+            this.logger.LogInformation(
+                "Discount is successfully created. ProductName: {productName}",
+                couponToCreate.ProductName
+            );
+
+            CouponModel coupon = this.mapper.Map<CouponModel>(couponToCreate);
+
+            return coupon;
         }
 
-        public override Task<CouponModel> UpdateDiscount(UpdateDiscountRequest request, global::Grpc.Core.ServerCallContext context)
+        public override async Task<CouponModel> UpdateDiscount(UpdateDiscountRequest request, ServerCallContext context)
         {
-            return base.UpdateDiscount(request, context);
+            Coupon couponToUpdate = this.mapper.Map<Coupon>(request.Coupon);
+            await this.discountRepository.UpdateDiscountAsync(couponToUpdate);
+
+            this.logger.LogInformation(
+                "Discount is successfully updated. ProductName: {productName}",
+                couponToUpdate.ProductName
+            );
+
+            CouponModel coupon = this.mapper.Map<CouponModel>(couponToUpdate);
+
+            return coupon;
         }
 
-        public override Task<DeleteDiscountResponse> DeleteDiscount(DeleteDiscountRequest request, global::Grpc.Core.ServerCallContext context)
+        public override async Task<DeleteDiscountResponse> DeleteDiscount(DeleteDiscountRequest request, ServerCallContext context)
         {
-            return base.DeleteDiscount(request, context);
+            bool isDeleted = await this.discountRepository.DeleteDiscountAsync(request.ProductName);
+            DeleteDiscountResponse response = new()
+            {
+                Success = isDeleted,
+            };
+
+            return response;
         }
     }
 }
