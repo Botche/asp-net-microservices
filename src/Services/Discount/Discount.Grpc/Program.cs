@@ -1,3 +1,4 @@
+using Discount.Grpc.Extensions;
 using Discount.Grpc.Services;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -7,6 +8,8 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddGrpc();
+
+builder.Services.MigrateDatabase<Program>();
 
 var app = builder.Build();
 
