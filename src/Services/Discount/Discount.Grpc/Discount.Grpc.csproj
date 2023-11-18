@@ -2,7 +2,6 @@
 
   <PropertyGroup>
     <TargetFramework>net7.0</TargetFramework>
-    <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
 
@@ -12,6 +11,8 @@
 
   <ItemGroup>
     <PackageReference Include="Grpc.AspNetCore" Version="2.49.0" />
+	<PackageReference Include="Dapper" Version="2.1.21" />
+	<PackageReference Include="npgsql" Version="7.0.6" />
   </ItemGroup>
 
 </Project>
