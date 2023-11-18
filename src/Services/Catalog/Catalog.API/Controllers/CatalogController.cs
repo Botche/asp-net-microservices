@@ -40,7 +40,7 @@
 
             if (product == null)
             {
-                this.logger.LogError($"Product with id: {id}, not found.");
+                this.logger.LogError("Product with id: {id}, not found.", id);
 
                 return this.NotFound();
             }
