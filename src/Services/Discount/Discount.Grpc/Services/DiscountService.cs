@@ -15,10 +15,10 @@
     public class DiscountService : DiscountProtoServiceBase
     {
         private readonly IDiscountRepository discountRepository;
-        private readonly ILogger logger;
+        private readonly ILogger<DiscountService> logger;
         private readonly IMapper mapper;
 
-        public DiscountService(IDiscountRepository discountRepository, ILogger logger, IMapper mapper)
+        public DiscountService(IDiscountRepository discountRepository, ILogger<DiscountService> logger, IMapper mapper)
         {
             this.discountRepository = discountRepository;
             this.logger = logger;

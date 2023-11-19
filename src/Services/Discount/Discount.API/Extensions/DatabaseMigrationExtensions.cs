@@ -7,7 +7,7 @@
         public static IServiceCollection MigrateDatabase<TContext>(this IServiceCollection services, IConfiguration configuration, int? retry = 0)
         {
             ServiceProvider serviceProvider = services.BuildServiceProvider();
-            ILogger logger = serviceProvider.GetService<ILogger<TContext>>();
+            ILogger<TContext> logger = serviceProvider.GetService<ILogger<TContext>>();
 
             string connectionString = configuration.GetValue<string>("DatabaseSettings:ConnectionString");
             var connection = new NpgsqlConnection(connectionString);
