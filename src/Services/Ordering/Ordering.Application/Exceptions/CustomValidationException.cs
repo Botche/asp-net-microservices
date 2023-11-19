@@ -2,15 +2,15 @@
 
 namespace Ordering.Application.Exceptions
 {
-    public class ValidationException : ApplicationException
+    public class CustomValidationException : ApplicationException
     {
-        public ValidationException()
+        public CustomValidationException()
             : base("One or more validation failures have occured.")
         {
             this.Errors = new Dictionary<string, string[]>();
         }
 
-        public ValidationException(IEnumerable<ValidationFailure> failures)
+        public CustomValidationException(IEnumerable<ValidationFailure> failures)
             : this()
         {
             this.Errors = failures
