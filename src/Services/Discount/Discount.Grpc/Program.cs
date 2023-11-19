@@ -12,7 +12,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddGrpc();
 builder.Services.AddAutoMapper(Assembly.GetExecutingAssembly());
 
-builder.Services.MigrateDatabase<Program>();
+builder.Services.MigrateDatabase<Program>(builder.Configuration);
 
 var app = builder.Build();
 

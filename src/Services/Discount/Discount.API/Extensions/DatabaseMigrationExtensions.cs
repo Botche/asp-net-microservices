@@ -4,11 +4,10 @@
 
     public static class DatabaseMigrationExtensions
     {
-        public static IServiceCollection MigrateDatabase<TContext>(this IServiceCollection services, int? retry = 0)
+        public static IServiceCollection MigrateDatabase<TContext>(this IServiceCollection services, IConfiguration configuration, int? retry = 0)
         {
             ServiceProvider serviceProvider = services.BuildServiceProvider();
             ILogger logger = serviceProvider.GetService<ILogger<TContext>>();
-            IConfiguration configuration = serviceProvider.GetService<IConfiguration>();
 
             string connectionString = configuration.GetValue<string>("DatabaseSettings:ConnectionString");
             var connection = new NpgsqlConnection(connectionString);
@@ -39,7 +38,7 @@
                 {
                     retryFroAvailability++;
                     Thread.Sleep(2000);
-                    MigrateDatabase<TContext>(services, retryFroAvailability);
+                    services.MigrateDatabase<TContext>(configuration, retryFroAvailability);
                 }
             }
             finally
