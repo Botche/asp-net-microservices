@@ -1,7 +1,7 @@
 using System.Reflection;
 
 using Discount.Grpc.Extensions;
-using Discount.Grpc.Repositories;
+using Discount.Data.Repositories;
 using Discount.Grpc.Services;
 
 var builder = WebApplication.CreateBuilder(args);

@@ -1,8 +1,8 @@
-﻿namespace Discount.API.Repositories
+﻿namespace Discount.Data.Repositories
 {
     using Dapper;
 
-    using Discount.API.Entities;
+    using Discount.Data.Entities;
 
     using Microsoft.Extensions.Configuration;
 
@@ -19,15 +19,15 @@
 
         public async Task<bool> CreateDiscountAsync(Coupon coupon)
         {
-            using NpgsqlConnection connection = this.GetDatabaseConnection();
+            using NpgsqlConnection connection = GetDatabaseConnection();
 
             int affectedRows = await connection.ExecuteAsync(
                 "INSERT INTO coupons (product_name, description, amount) VALUES (@ProductName, @Description, @Amount)",
                 new
                 {
-                    ProductName = coupon.ProductName,
-                    Description = coupon.Description,
-                    Amount = coupon.Amount,
+                    coupon.ProductName,
+                    coupon.Description,
+                    coupon.Amount,
                 }
             );
 
@@ -36,7 +36,7 @@
 
         public async Task<bool> DeleteDiscountAsync(string productName)
         {
-            using NpgsqlConnection connection = this.GetDatabaseConnection();
+            using NpgsqlConnection connection = GetDatabaseConnection();
 
             int affectedRows = await connection.ExecuteAsync(
                 "DELETE FROM coupons WHERE product_name = @ProductName",
@@ -48,7 +48,7 @@
 
         public async Task<Coupon> GetDiscountAsync(string productName)
         {
-            using NpgsqlConnection connection = this.GetDatabaseConnection();
+            using NpgsqlConnection connection = GetDatabaseConnection();
 
             Coupon coupon = await connection.QueryFirstOrDefaultAsync<Coupon>(
                 "SELECT product_name AS ProductName, * FROM coupons WHERE product_name = @ProductName",
@@ -70,16 +70,16 @@
 
         public async Task<bool> UpdateDiscountAsync(Coupon coupon)
         {
-            using NpgsqlConnection connection = this.GetDatabaseConnection();
+            using NpgsqlConnection connection = GetDatabaseConnection();
 
             int affectedRows = await connection.ExecuteAsync(
                 "UPDATE coupons SET product_name=@ProductName, description = @Description, amount = @Amount WHERE Id = @Id",
                 new
                 {
-                    ProductName = coupon.ProductName,
-                    Description = coupon.Description,
-                    Amount = coupon.Amount,
-                    Id = coupon.Id
+                    coupon.ProductName,
+                    coupon.Description,
+                    coupon.Amount,
+                    coupon.Id
                 }
             );
 
@@ -88,7 +88,7 @@
 
         private NpgsqlConnection GetDatabaseConnection()
         {
-            string connectionString = this.configuration.GetValue<string>("DatabaseSettings:ConnectionString");
+            string connectionString = configuration.GetValue<string>("DatabaseSettings:ConnectionString");
             return new NpgsqlConnection(connectionString);
         }
     }

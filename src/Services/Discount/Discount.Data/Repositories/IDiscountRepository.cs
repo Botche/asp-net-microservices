@@ -1,6 +1,6 @@
-﻿namespace Discount.Grpc.Repositories
+﻿namespace Discount.Data.Repositories
 {
-    using Discount.Grpc.Entities;
+    using Discount.Data.Entities;
 
     public interface IDiscountRepository
     {

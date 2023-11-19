@@ -2,8 +2,8 @@
 {
     using System.Net;
 
-    using Discount.API.Entities;
-    using Discount.API.Repositories;
+    using Discount.Data.Entities;
+    using Discount.Data.Repositories;
 
     using Microsoft.AspNetCore.Mvc;
 

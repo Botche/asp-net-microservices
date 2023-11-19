@@ -4,9 +4,9 @@
 
     using AutoMapper;
 
-    using Discount.Grpc.Entities;
+    using Discount.Data.Entities;
+    using Discount.Data.Repositories;
     using Discount.Grpc.Protos;
-    using Discount.Grpc.Repositories;
 
     using global::Grpc.Core;
 
