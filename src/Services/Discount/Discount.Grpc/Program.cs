@@ -1,6 +1,7 @@
 using System.Reflection;
 
 using Discount.Grpc.Extensions;
+using Discount.Grpc.Repositories;
 using Discount.Grpc.Services;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -11,6 +12,7 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddGrpc();
 builder.Services.AddAutoMapper(Assembly.GetExecutingAssembly());
+builder.Services.AddScoped<IDiscountRepository, DiscountRepository>();
 
 builder.Services.MigrateDatabase<Program>(builder.Configuration);
 
