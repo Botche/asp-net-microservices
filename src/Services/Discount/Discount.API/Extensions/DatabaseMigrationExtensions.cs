@@ -4,10 +4,10 @@
 
     public static class DatabaseMigrationExtensions
     {
-        public static IServiceCollection MigrateDatabase<TContext>(this IServiceCollection services, IConfiguration configuration, int? retry = 0)
+        public static WebApplication MigrateDatabase<TContext>(this WebApplication app, int? retry = 0)
         {
-            ServiceProvider serviceProvider = services.BuildServiceProvider();
-            ILogger<TContext> logger = serviceProvider.GetService<ILogger<TContext>>();
+            ILogger<TContext> logger = app.Services.GetService<ILogger<TContext>>();
+            IConfiguration configuration = app.Services.GetService<IConfiguration>();
 
             string connectionString = configuration.GetValue<string>("DatabaseSettings:ConnectionString");
             var connection = new NpgsqlConnection(connectionString);
@@ -33,12 +33,12 @@
             {
                 logger.LogError(ex, "An error occurred while migrating the postgres database");
 
-                int retryFroAvailability = retry.Value;
-                if (retryFroAvailability < 50)
+                int retryForAvailability = retry.Value;
+                if (retryForAvailability < 50)
                 {
-                    retryFroAvailability++;
+                    retryForAvailability++;
                     Thread.Sleep(2000);
-                    services.MigrateDatabase<TContext>(configuration, retryFroAvailability);
+                    app.MigrateDatabase<TContext>(retryForAvailability);
                 }
             }
             finally
@@ -46,7 +46,7 @@
                 connection.Close();
             }
 
-            return services;
+            return app;
         }
 
         private static void ExecuteSeedTableCoupons(this NpgsqlCommand command)

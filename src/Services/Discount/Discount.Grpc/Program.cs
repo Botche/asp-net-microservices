@@ -14,9 +14,9 @@ builder.Services.AddGrpc();
 builder.Services.AddAutoMapper(Assembly.GetExecutingAssembly());
 builder.Services.AddScoped<IDiscountRepository, DiscountRepository>();
 
-builder.Services.MigrateDatabase<Program>(builder.Configuration);
-
 var app = builder.Build();
+
+app.MigrateDatabase<Program>();
 
 // Configure the HTTP request pipeline.
 app.MapGrpcService<DiscountService>();
