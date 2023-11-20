@@ -10,8 +10,9 @@
             int? retry = 0)
             where TContext : DbContext
         {
-            var logger = app.Services.GetRequiredService<ILogger<TContext>>();
-            var context = app.Services.GetService<TContext>();
+            ILogger<TContext> logger = app.Services.GetRequiredService<ILogger<TContext>>();
+            using IServiceScope scope = app.Services.CreateScope();
+            TContext context = scope.ServiceProvider.GetRequiredService<TContext>();
             
             try
             {
