@@ -97,3 +97,13 @@ services:
       - discount.db
     ports:
       - "8003:80"
+
+  ordering.api:
+    container_name: ordering.api
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ConnectionStrings__OrderingConnectionString=Server=order.db;Database=OrderDb;User Id=sa;Password=SwN12345678;TrustServerCertificate=True;
+    depends_on:
+      - order.db
+    ports:
+      - "8004:80"

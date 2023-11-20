@@ -8,6 +8,7 @@ FROM mcr.microsoft.com/dotnet/sdk:7.0 AS build
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
 COPY ["Services/Discount/Discount.API/Discount.API.csproj", "Services/Discount/Discount.API/"]
+COPY ["Services/Discount/Discount.Data/Discount.Data.csproj", "Services/Discount/Discount.Data/"]
 RUN dotnet restore "./Services/Discount/Discount.API/./Discount.API.csproj"
 COPY . .
 WORKDIR "/src/Services/Discount/Discount.API"
