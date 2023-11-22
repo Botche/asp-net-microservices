@@ -67,7 +67,8 @@
                 return BadRequest();
             }
 
-            BasketCheckoutEvent checkoutEventMessage = this.mapper.Map<BasketCheckoutEvent>(basket);
+            BasketCheckoutEvent checkoutEventMessage = this.mapper.Map<BasketCheckoutEvent>(model);
+            checkoutEventMessage.TotalPrice = basket.TotalPrice;
             await this.publishEndpoint.Publish(checkoutEventMessage);
 
             await this.basketRepository.DeleteBasketAsync(model.UserName);
