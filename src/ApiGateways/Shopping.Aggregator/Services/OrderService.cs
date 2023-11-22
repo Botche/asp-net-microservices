@@ -1,5 +1,6 @@
 ﻿namespace Shopping.Aggregator.Services
 {
+    using Shopping.Aggregator.Extensions;
     using Shopping.Aggregator.Models;
     using Shopping.Aggregator.Services.Interfaces;
 
@@ -12,9 +13,11 @@
             this.client = client;
         }
 
-        public Task<IEnumerable<OrderResponseModel>> GetOrdersByUserNameAsync(string userName)
+        public async Task<IEnumerable<OrderResponseModel>> GetOrdersByUserNameAsync(string userName)
         {
-            throw new NotImplementedException();
+            HttpResponseMessage response = await this.client.GetAsync($"/api/v1/Order/{userName}");
+
+            return await response.ReadContentAsAsync<IEnumerable<OrderResponseModel>>();
         }
     }
 }

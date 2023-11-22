@@ -6,7 +6,7 @@
     {
         Task<IEnumerable<CatalogModel>> GetCatalogAsync();
 
-        Task<IEnumerable<CatalogModel>> GetCatalogByCategoryAsyn();
+        Task<IEnumerable<CatalogModel>> GetCatalogByCategoryAsync(string category);
 
         Task<CatalogModel> GetCatalogAsync(string categoryId);
     }

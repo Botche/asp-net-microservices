@@ -4,7 +4,7 @@
 
     public static class HttpClientExtensions
     {
-        public static async Task<T> ReadContentAs<T>(this HttpResponseMessage response)
+        public static async Task<T> ReadContentAsAsync<T>(this HttpResponseMessage response)
         {
             if (!response.IsSuccessStatusCode)
             {
