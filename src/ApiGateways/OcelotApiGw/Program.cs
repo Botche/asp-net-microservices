@@ -3,6 +3,9 @@ using Ocelot.Middleware;
 
 var builder = WebApplication.CreateBuilder(args);
 
+builder.Configuration
+    .AddJsonFile($"ocelot.{builder.Environment.EnvironmentName}.json", true, true);
+
 builder.Logging.AddConfiguration(builder.Configuration);
 builder.Logging.AddConsole();
 builder.Logging.AddDebug();
