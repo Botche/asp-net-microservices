@@ -1,3 +1,5 @@
+using System.Reflection;
+
 using Discount.API.Extensions;
 
 using EventBus.Messages.Common;
@@ -17,6 +19,10 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+builder.Services.AddAutoMapper(Assembly.GetExecutingAssembly());
+
+builder.Services.AddScoped<BasketCheckoutConsumer>();
 
 builder.Services.AddApplicationServices();
 builder.Services.AddInfrastructureServices(builder.Configuration);
