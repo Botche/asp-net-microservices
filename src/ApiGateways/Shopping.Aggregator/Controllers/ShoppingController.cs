@@ -37,7 +37,6 @@
                 item.Summary = product.Summary;
                 item.Description = product.Description;
                 item.ImageFile = product.ImageFile;
-                item.Price = product.Price;
             }
 
             IEnumerable<OrderResponseModel> order = await this.orderService.GetOrdersByUserNameAsync(userName);
