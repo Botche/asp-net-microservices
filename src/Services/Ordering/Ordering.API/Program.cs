@@ -1,5 +1,10 @@
 using Discount.API.Extensions;
 
+using EventBus.Messages.Common;
+
+using MassTransit;
+
+using Ordering.API.EventBusConsumers;
 using Ordering.Application;
 using Ordering.Infrastructure;
 using Ordering.Infrastructure.Persistence;
@@ -15,6 +20,21 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.AddApplicationServices();
 builder.Services.AddInfrastructureServices(builder.Configuration);
+
+builder.Services.AddMassTransit(config =>
+{
+    config.AddConsumer<BasketCheckoutConsumer>();
+
+    config.UsingRabbitMq((context, configRmq) =>
+    {
+        configRmq.Host(builder.Configuration.GetValue<string>("EventBusSettings:HostAddress"));
+
+        configRmq.ReceiveEndpoint(EventBusConstants.BasketCheckoutQueueName, configEndpoint =>
+        {
+            configEndpoint.ConfigureConsumer<BasketCheckoutConsumer>(context);
+        });
+    });
+});
 
 var app = builder.Build();
 
