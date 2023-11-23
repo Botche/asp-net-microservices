@@ -8,7 +8,7 @@
         }
 
         public string UserName { get; set; }
-        public IEnumerable<BasketItemModel> Items { get; set; }
+        public ICollection<BasketItemModel> Items { get; set; }
         public decimal TotalPrice { get; set; }
     }
 }
