@@ -4,16 +4,16 @@
     using System.Threading.Tasks;
 
     using AspnetRunBasics.Models;
-    using AspnetRunBasics.Services;
+    using AspnetRunBasics.Services.Interfaces;
 
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.AspNetCore.Mvc.RazorPages;
 
     public class OrderModel : PageModel
     {
-        private readonly OrderService orderService;
+        private readonly IOrderService orderService;
 
-        public OrderModel(OrderService orderService)
+        public OrderModel(IOrderService orderService)
         {
             this.orderService = orderService;
 
