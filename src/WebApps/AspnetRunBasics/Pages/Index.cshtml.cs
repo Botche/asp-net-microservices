@@ -23,8 +23,9 @@
 
         public async Task<IActionResult> OnGetAsync()
         {
-            ProductList = await this.catalogService.GetCatalogAsync();
-            return Page();
+            this.ProductList = await this.catalogService.GetCatalogAsync();
+
+            return this.Page();
         }
 
         public async Task<IActionResult> OnPostAddToCartAsync(string productId)
@@ -45,7 +46,7 @@
 
             await this.basketService.UpdateBasketAsync(basket);
 
-            return RedirectToPage("Cart");
+            return this.RedirectToPage("Cart");
         }
     }
 }

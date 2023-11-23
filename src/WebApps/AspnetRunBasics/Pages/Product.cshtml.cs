@@ -46,7 +46,7 @@
                 this.SelectedCategory = categoryName;
             }
 
-            return Page();
+            return this.Page();
         }
 
         public async Task<IActionResult> OnPostAddToCartAsync(string productId)
@@ -62,12 +62,12 @@
                 ProductName = product.Name,
                 Price = product.Price,
                 Quantity = 1,
-                Color = "Black"
+                Color = "Black",
             });
 
             await this.basketService.UpdateBasketAsync(basket);
 
-            return RedirectToPage("Cart");
+            return this.RedirectToPage("Cart");
         }
     }
 }
