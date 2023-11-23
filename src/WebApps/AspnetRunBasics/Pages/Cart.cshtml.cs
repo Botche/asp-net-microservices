@@ -1,34 +1,46 @@
-﻿using System;
-using System.Threading.Tasks;
-using AspnetRunBasics.Entities;
-using AspnetRunBasics.Repositories;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.RazorPages;
-
-namespace AspnetRunBasics
+﻿namespace AspnetRunBasics
 {
+    using System.Threading.Tasks;
+
+    using AspnetRunBasics.Models;
+    using AspnetRunBasics.Services.Interfaces;
+
+    using Microsoft.AspNetCore.Mvc;
+    using Microsoft.AspNetCore.Mvc.RazorPages;
+
     public class CartModel : PageModel
     {
-        private readonly ICartRepository _cartRepository;
+        private readonly IBasketService basketService;
 
-        public CartModel(ICartRepository cartRepository)
+        public CartModel(IBasketService basketService)
         {
-            _cartRepository = cartRepository ?? throw new ArgumentNullException(nameof(cartRepository));
+            this.basketService = basketService;
+
+            this.Cart = new BasketModel();
         }
 
-        public Entities.Cart Cart { get; set; } = new Entities.Cart();        
+        public BasketModel Cart { get; set; }
 
         public async Task<IActionResult> OnGetAsync()
         {
-            Cart = await _cartRepository.GetCartByUserName("test");            
+            string userName = "swn";
+            this.Cart = await this.basketService.GetBasketAsync(userName);
 
-            return Page();
+            return this.Page();
         }
 
-        public async Task<IActionResult> OnPostRemoveToCartAsync(int cartId, int cartItemId)
+        public async Task<IActionResult> OnPostRemoveFromCartAsync(string productId)
         {
-            await _cartRepository.RemoveItem(cartId, cartItemId);
-            return RedirectToPage();
+            string userName = "swn";
+            BasketModel basket = await this.basketService.GetBasketAsync(userName);
+
+            BasketItemModel item = basket.Items
+                .SingleOrDefault(x => x.ProductId == productId);
+            basket.Items.Remove(item);
+
+            await this.basketService.UpdateBasketAsync(basket);
+
+            return this.RedirectToPage();
         }
     }
 }
