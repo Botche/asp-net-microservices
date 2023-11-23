@@ -1,28 +1,33 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-using AspnetRunBasics.Repositories;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.RazorPages;
-
-namespace AspnetRunBasics
+﻿namespace AspnetRunBasics
 {
+    using System.Collections.Generic;
+    using System.Threading.Tasks;
+
+    using AspnetRunBasics.Models;
+    using AspnetRunBasics.Services;
+
+    using Microsoft.AspNetCore.Mvc;
+    using Microsoft.AspNetCore.Mvc.RazorPages;
+
     public class OrderModel : PageModel
     {
-        private readonly IOrderRepository _orderRepository;
+        private readonly OrderService orderService;
 
-        public OrderModel(IOrderRepository orderRepository)
+        public OrderModel(OrderService orderService)
         {
-            _orderRepository = orderRepository ?? throw new ArgumentNullException(nameof(orderRepository));
+            this.orderService = orderService;
+
+            this.Orders = new List<OrderResponseModel>();
         }
 
-        public IEnumerable<Entities.Order> Orders { get; set; } = new List<Entities.Order>();
+        public IEnumerable<OrderResponseModel> Orders { get; set; }
 
         public async Task<IActionResult> OnGetAsync()
         {
-            Orders = await _orderRepository.GetOrdersByUserName("test");
+            string userName = "swn";
+            this.Orders = await this.orderService.GetOrdersByUserNameAsync(userName);
 
-            return Page();
+            return this.Page();
         }       
     }
 }
