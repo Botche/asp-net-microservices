@@ -46,10 +46,11 @@
         [ProducesResponseType(typeof(ShoppingCart), (int)HttpStatusCode.OK)]
         public async Task<ActionResult<ShoppingCart>> UpdateBasket([FromBody] ShoppingCart basket)
         {
-            foreach (var item in basket.Items)
+            foreach (var item in basket.Items.Where(i => i.AppliedDiscount == false))
             {
                 CouponModel coupon = await this.discountGrpcService.GetDiscountAsync(item.ProductName);
                 item.Price -= coupon.Amount;
+                item.AppliedDiscount = true;
             }
 
             return this.Ok(await this.basketRepository.UpdateBasketAsync(basket));
