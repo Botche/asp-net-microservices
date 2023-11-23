@@ -1,54 +1,72 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using AspnetRunBasics.Repositories;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.RazorPages;
-
-namespace AspnetRunBasics
+﻿namespace AspnetRunBasics
 {
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Threading.Tasks;
+
+    using AspnetRunBasics.Models;
+    using AspnetRunBasics.Services.Interfaces;
+
+    using Microsoft.AspNetCore.Mvc;
+    using Microsoft.AspNetCore.Mvc.RazorPages;
+
     public class ProductModel : PageModel
     {
-        private readonly IProductRepository _productRepository;
-        private readonly ICartRepository _cartRepository;
+        private readonly ICatalogService catalogService;
+        private readonly IBasketService basketService;
 
-        public ProductModel(IProductRepository productRepository, ICartRepository cartRepository)
+        public ProductModel(ICatalogService catalogService, IBasketService basketService)
         {
-            _productRepository = productRepository ?? throw new ArgumentNullException(nameof(productRepository));
-            _cartRepository = cartRepository ?? throw new ArgumentNullException(nameof(cartRepository));
+            this.catalogService = catalogService;
+            this.basketService = basketService;
+
+            this.CategoryList = new List<string>();
+            this.ProductList = new List<CatalogModel>();
         }
 
-        public IEnumerable<Entities.Category> CategoryList { get; set; } = new List<Entities.Category>();
-        public IEnumerable<Entities.Product> ProductList { get; set; } = new List<Entities.Product>();
+        public IEnumerable<string> CategoryList { get; set; }
+        public IEnumerable<CatalogModel> ProductList { get; set; }
 
 
         [BindProperty(SupportsGet = true)]
         public string SelectedCategory { get; set; }
 
-        public async Task<IActionResult> OnGetAsync(int? categoryId)
+        public async Task<IActionResult> OnGetAsync(string categoryName)
         {
-            CategoryList = await _productRepository.GetCategories();
+            IEnumerable<CatalogModel> productsList = await this.catalogService.GetCatalogAsync();
+            this.ProductList = productsList;
+            this.CategoryList = productsList
+                .Select(p => p.Category)
+                .ToList();
 
-            if (categoryId.HasValue)
+            if (!string.IsNullOrWhiteSpace(categoryName))
             {
-                ProductList = await _productRepository.GetProductByCategory(categoryId.Value);
-                SelectedCategory = CategoryList.FirstOrDefault(c => c.Id == categoryId.Value)?.Name;
-            }
-            else
-            {
-                ProductList = await _productRepository.GetProducts();
+                this.ProductList = productsList
+                    .Where(p => p.Category == categoryName);
+                this.SelectedCategory = categoryName;
             }
 
             return Page();
         }
 
-        public async Task<IActionResult> OnPostAddToCartAsync(int productId)
+        public async Task<IActionResult> OnPostAddToCartAsync(string productId)
         {
-            //if (!User.Identity.IsAuthenticated)
-            //    return RedirectToPage("./Account/Login", new { area = "Identity" });
+            CatalogModel product = await this.catalogService.GetCatalogAsync(productId);
 
-            await _cartRepository.AddItem("test", productId);
+            string userName = "swn";
+            BasketModel basket = await this.basketService.GetBasketAsync(userName);
+
+            basket.Items.Add(new BasketItemModel
+            {
+                ProductId = productId,
+                ProductName = product.Name,
+                Price = product.Price,
+                Quantity = 1,
+                Color = "Black"
+            });
+
+            await this.basketService.UpdateBasketAsync(basket);
+
             return RedirectToPage("Cart");
         }
     }
