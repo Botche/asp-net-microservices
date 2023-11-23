@@ -1,6 +1,23 @@
+using AspnetRunBasics.Services;
+using AspnetRunBasics.Services.Interfaces;
+
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddRazorPages();
+
+Uri gatewayUri = new(builder.Configuration["ApiSettings:GatewayAddress"]);
+builder.Services.AddHttpClient<ICatalogService, CatalogService>(config =>
+{
+    config.BaseAddress = gatewayUri;
+});
+builder.Services.AddHttpClient<IBasketService, BasketService>(config =>
+{
+    config.BaseAddress = gatewayUri;
+});
+builder.Services.AddHttpClient<IOrderService, OrderService>(config =>
+{
+    config.BaseAddress = gatewayUri;
+});
 
 var app = builder.Build();
 
