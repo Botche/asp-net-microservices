@@ -24,20 +24,28 @@
 
                 <div class="collapse navbar-collapse justify-content-end" id="navbarsExampleDefault">
                     <ul class="navbar-nav m-auto">
-                        <li class="nav-item active">
-                            <a class="nav-link" asp-area="" asp-page="/Index">Home <span class="sr-only">(current)</span></a>
+                        @{
+                            string homeUrl = Url.Page("Index");
+                            string productUrl = Url.Page("Product");
+                            string cartUrl = Url.Page("Cart");
+                            string orderUrl = Url.Page("Order");
+                            string contanctUrl = Url.Page("Contact");
+                        }
+                        
+                        <li class="nav-item @(this.Context.Request.Path == homeUrl ? "active" : null)">
+                            <a class="nav-link" href="@homeUrl">Home</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" asp-area="" asp-page="/Product">Product</a>
+                        <li class="nav-item @(this.Context.Request.Path == productUrl ? "active" : null)">
+                            <a class="nav-link" href="@productUrl">Product</a>
                         </li>                        
-                        <li class="nav-item">
-                            <a class="nav-link" asp-area="" asp-page="/Cart">Cart</a>
+                        <li class="nav-item @(this.Context.Request.Path == cartUrl ? "active" : null)">
+                            <a class="nav-link" href="@cartUrl">Cart</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" asp-area="" asp-page="/Order">Order</a>
+                        <li class="nav-item @(this.Context.Request.Path == orderUrl ? "active" : null)">
+                            <a class="nav-link" href="@orderUrl">Order</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" asp-area="" asp-page="/Contact">Contact</a>
+                        <li class="nav-item @(this.Context.Request.Path == contanctUrl ? "active" : null)">
+                            <a class="nav-link" href="@contanctUrl">Contact</a>
                         </li>
                     </ul>
 
