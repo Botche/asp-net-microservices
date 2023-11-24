@@ -12,10 +12,11 @@ body {
 .category_block li:hover {
     background-color: #007bff;
 }
-.category_block li:hover a {
+.category_block a:hover {
+    text-decoration: none;
     color: #ffffff;
 }
-.category_block li a {
+.category_block a {
     color: #343a40;
 }
 .add_to_cart_block .price {
