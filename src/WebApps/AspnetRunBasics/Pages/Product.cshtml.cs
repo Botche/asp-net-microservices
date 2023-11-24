@@ -37,6 +37,7 @@
             this.ProductList = productsList;
             this.CategoryList = productsList
                 .Select(p => p.Category)
+                .Distinct()
                 .ToList();
 
             if (!string.IsNullOrWhiteSpace(categoryName))
