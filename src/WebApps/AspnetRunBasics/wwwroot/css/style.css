@@ -1,7 +1,8 @@
-/*
-** Style Simple Ecommerce Theme for Bootstrap 4
-** Created by T-PHP https://t-php.fr/43-theme-ecommerce-bootstrap-4.html
-*/
+body {
+    display: grid;
+    grid-template-rows: 6vh minmax(64vh, auto) 30vh;
+}
+
 .bloc_left_price {
     color: #c01508;
     text-align: center;
