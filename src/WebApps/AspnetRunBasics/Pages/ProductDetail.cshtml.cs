@@ -12,6 +12,7 @@
     {
         private readonly ICatalogService catalogService;
         private readonly IBasketService basketService;
+        private int quantity;
 
         public ProductDetailModel(ICatalogService catalogService, IBasketService basketService)
         {
@@ -25,7 +26,19 @@
         public string Color { get; set; }
 
         [BindProperty]
-        public int Quantity { get; set; }
+        public int Quantity
+        {
+            get => this.quantity;
+            set
+            {
+                if (value <= 0)
+                {
+                    value = 1;
+                }
+
+                this.quantity = value;
+            }
+        }
 
         public async Task<IActionResult> OnGetAsync(string productId)
         {
@@ -59,13 +72,13 @@
                     ProductId = productId,
                     ProductName = product.Name,
                     Price = product.Price,
-                    Quantity = 1,
+                    Quantity = this.Quantity,
                     Color = this.Color,
                 });
             }
             else
             {
-                productFromBasket.Quantity += 1;
+                productFromBasket.Quantity += this.Quantity;
             }
 
             await this.basketService.UpdateBasketAsync(basket);
