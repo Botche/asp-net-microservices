@@ -50,14 +50,23 @@
             string userName = "swn";
             BasketModel basket = await this.basketService.GetBasketAsync(userName);
 
-            basket.Items.Add(new BasketItemModel
+            BasketItemModel productFromBasket = basket.Items
+                .FirstOrDefault(i => i.ProductId == productId);
+            if (productFromBasket is null)
             {
-                ProductId = productId,
-                ProductName = product.Name,
-                Price = product.Price,
-                Quantity = 1,
-                Color = this.Color,
-            });
+                basket.Items.Add(new BasketItemModel
+                {
+                    ProductId = productId,
+                    ProductName = product.Name,
+                    Price = product.Price,
+                    Quantity = 1,
+                    Color = this.Color,
+                });
+            }
+            else
+            {
+                productFromBasket.Quantity += 1;
+            }
 
             await this.basketService.UpdateBasketAsync(basket);
 
