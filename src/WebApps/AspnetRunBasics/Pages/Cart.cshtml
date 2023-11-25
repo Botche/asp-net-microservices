@@ -59,17 +59,11 @@
                 </table>
             </div>
         </div>
-        <div class="col mb-2">
-            <div class="row">
-                <div class="col-sm-12  col-md-6">
-                    @*<button class="btn btn-lg btn-block btn-danger">Continue Shopping</button>*@
-                    <a asp-page="Product" class="btn btn-lg btn-block btn-success">Continue Shopping</a>
-                </div>
-                <div class="col-sm-12 col-md-6 text-right">
-                    @*<button class="btn btn-lg btn-block btn-danger text-uppercase">CheckOut</button>*@
-                    <a asp-page="CheckOut" class="btn btn-lg btn-block btn-danger text-uppercase">CheckOut</a>
-                </div>
-            </div>
+        <div class="col-sm-12 col-md-6">
+            <a asp-page="Product" class="btn btn-lg btn-block btn-success w-100">Continue Shopping</a>
+        </div>
+        <div class="col-sm-12 col-md-6">
+            <a asp-page="CheckOut" class="btn btn-lg btn-block btn-danger text-uppercase w-100">CheckOut</a>
         </div>
     </div>
 </div>
