@@ -31,8 +31,8 @@
         <div class="col-12 col-lg-6 add_to_cart_block">
             <div class="card bg-light mb-3">
                 <div class="card-body">
-                    <p class="price">@Model.Product.Price $</p>
-                    <p class="price_discounted">@(Model.Product.Price + 120) $</p>
+                    <p class="price">$@Model.Product.Price</p>
+                    <p class="price_discounted">$@(Model.Product.Price + 120)</p>
                     <form asp-page-handler="AddToCart" method="post" name="addToCartForm" id="add_cart_form">
                         <div class="mb-2">
                             <label for="colors">Color:</label>

@@ -37,7 +37,7 @@
                                 <td>In stock</td>
                                 <td class="text-center">@cartItem.Quantity</td>
                                 @* <td><input class="form-control" type="text" value="@cartItem.Quantity" /></td> *@
-                                <td class="text-right">@(cartItem.Price * cartItem.Quantity) $</td>
+                                <td class="text-right">$@(cartItem.Price * cartItem.Quantity)</td>
                                 <td class="text-right">
                                     <form asp-page-handler="removefromcart" method="post">
                                         <button class="btn btn-sm btn-danger"><i class="bi bi-trash-fill"></i></button>
@@ -53,7 +53,7 @@
                             <td></td>
                             <td></td>
                             <td><strong>Total</strong></td>
-                            <td class="text-right"><strong>@Model.Cart.TotalPrice $</strong></td>
+                            <td class="text-right"><strong>$@Model.Cart.TotalPrice</strong></td>
                         </tr>
                     </tbody>
                 </table>
