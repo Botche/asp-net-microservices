@@ -3,7 +3,7 @@
 @{
     ViewData["Title"] = "Product";
 
-    ICollection<Tuple<string, string>> breadcrumbs = new List<Tuple<string, string>>()
+    ICollection<Breadcrumb> breadcrumbs = new List<Breadcrumb>()
     {
         new("Index", "Home"),
         new("Product", "Category"),
@@ -11,10 +11,7 @@
 
     if (this.Model.SelectedCategory is not null)
     {
-        Tuple<string, string> selectedCategory = new(
-            string.Empty,
-            this.Model.SelectedCategory
-        );
+        Breadcrumb selectedCategory = new(this.Model.SelectedCategory);
         breadcrumbs.Add(selectedCategory);
     }
 }

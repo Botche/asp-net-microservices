@@ -1,29 +1,24 @@
-﻿@model IEnumerable<Tuple<string, string>>
+﻿@model IEnumerable<Breadcrumb>
 
 <div class="container">
     <div class="row">
         <div class="col">
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb bg-light p-3 rounded-3">
-                    @{
-                        var index = 0;
-                    }
-                    @foreach (var (pageUrl, name) in this.Model)
+                    @foreach (var (breadcrumb, index) in this.Model.Select((value, i) => new Tuple<Breadcrumb, int>(value, i)))
                     {
                         <li class="breadcrumb-item">
-                            @if(pageUrl == string.Empty || index == this.Model.Count() - 1)
+                            @if (breadcrumb.ShouldAppedPage && index != this.Model.Count() - 1)
                             {
-                                @name
+                                <a asp-page="@breadcrumb.Page" class="text-decoration-none">
+                                    @breadcrumb.Name
+                                </a>
                             }
                             else
                             {
-                                <a asp-page="@pageUrl" class="text-decoration-none">
-                                    @name
-                                </a>
-                            } 
+                                @breadcrumb.Name
+                            }
                         </li>
-
-                        index++;
                     }
                 </ol>
             </nav>

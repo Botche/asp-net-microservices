@@ -3,10 +3,10 @@
 @{
     ViewData["Title"] = "Order";
 
-    IEnumerable<Tuple<string, string>> breadcrumbs = new List<Tuple<string, string>>()
+    IEnumerable<Breadcrumb> breadcrumbs = new List<Breadcrumb>()
     {
         new("Index", "Home"),
-        new(string.Empty, "Order"),
+        new("Order"),
     };
 }
 
