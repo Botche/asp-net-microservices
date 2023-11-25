@@ -40,7 +40,7 @@
                                 <td class="text-right">@(cartItem.Price * cartItem.Quantity) $</td>
                                 <td class="text-right">
                                     <form asp-page-handler="removefromcart" method="post">
-                                        <button class="btn btn-sm btn-danger"><i class="fa fa-trash"></i></button>
+                                        <button class="btn btn-sm btn-danger"><i class="bi bi-trash-fill"></i></button>
                                         <input type="hidden" asp-for="@cartItem.ProductId" name="productId" />
                                     </form>
                                 </td>

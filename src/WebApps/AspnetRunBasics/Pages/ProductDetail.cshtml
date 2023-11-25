@@ -19,7 +19,7 @@
         <div class="col-12 col-lg-6">
             <div class="card bg-light mb-3">
                 <div class="card-body">
-                    <a href="" data-toggle="modal" data-target="#productModal">
+                    <a href="" data-toggle="modal" data-target="#productModal" class="text-decoration-none">
                         <img class="img-fluid" src="~/images/product/@Model.Product.ImageFile.Replace('-','x')" />
                         <p class="text-center">@Model.Product.Name</p>
                     </a>
@@ -48,41 +48,41 @@
                             <div class="input-group mb-3">
                                 <div class="input-group-prepend">
                                     <button type="button" class="quantity-left-minus btn btn-danger btn-number" data-type="minus" data-field="">
-                                        <i class="fa fa-minus"></i>
+                                        <i class="bi bi-dash"></i>
                                     </button>
                                 </div>
                                 <input asp-for="Quantity" type="text" class="form-control" id="quantity" name="quantity" min="1" max="100" value="1">
                                 <div class="input-group-append">
                                     <button type="button" class="quantity-right-plus btn btn-success btn-number" data-type="plus" data-field="">
-                                        <i class="fa fa-plus"></i>
+                                        <i class="bi bi-plus-lg"></i>
                                     </button>
                                 </div>
                             </div>
                         </div>
-                        <a href="javascript:;" onclick="parentNode.submit();" class="btn btn-success btn-lg btn-block text-uppercase">
-                            <i class="fa fa-shopping-cart"></i> Add To Cart
+                        <a href="javascript:;" onclick="parentNode.submit();" class="btn btn-success btn-lg btn-block text-uppercase w-100">
+                            <i class="bi bi-cart-fill"></i> Add To Cart
                         </a>
                         <input type="hidden" asp-for="@Model.Product.Id" name="productId" />
                     </form>
                     <div class="product_rassurance">
                         <ul class="list-inline">
-                            <li class="list-inline-item"><i class="fa fa-truck fa-2x"></i><br />Fast delivery</li>
-                            <li class="list-inline-item"><i class="fa fa-credit-card fa-2x"></i><br />Secure payment</li>
-                            <li class="list-inline-item"><i class="fa fa-phone fa-2x"></i><br />+33 1 22 54 65 60</li>
+                            <li class="list-inline-item"><i class="bi bi-truck fs-2"></i><br />Fast delivery</li>
+                            <li class="list-inline-item"><i class="bi bi-credit-card fs-2"></i><br />Secure payment</li>
+                            <li class="list-inline-item"><i class="bi bi-telephone fs-2"></i><br />+33 1 22 54 65 60</li>
                         </ul>
                     </div>
                     <div class="reviews_product p-3 mb-2 ">
                         3 reviews
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
+                        <i class="bi bi-star-fill"></i>
+                        <i class="bi bi-star-fill"></i>
+                        <i class="bi bi-star-fill"></i>
+                        <i class="bi bi-star-fill"></i>
+                        <i class="bi bi-star-fill"></i>
                         (4/5)
                         <a class="pull-right" href="#reviews">View all reviews</a>
                     </div>
                     <div class="datasheet p-3 mb-2 bg-info text-white">
-                        <a href="" class="text-white"><i class="fa fa-file-text"></i> Download DataSheet</a>
+                        <a href="" class="text-white"><i class="bi bi-file-earmark-arrow-down-fill"></i> Download DataSheet</a>
                     </div>
                 </div>
             </div>

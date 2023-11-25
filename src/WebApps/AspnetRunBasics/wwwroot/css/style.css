@@ -47,7 +47,7 @@ body {
 .product_rassurance .list-inline li:hover {
     color: #343a40;
 }
-.reviews_product .fa-star {
+.reviews_product .bi-star-fill {
     color: gold;
 }
 .pagination {
