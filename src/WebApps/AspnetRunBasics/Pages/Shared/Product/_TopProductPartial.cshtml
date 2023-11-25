@@ -3,23 +3,25 @@
 <div class="col-12 col-md-3">
     <div class="card">
         <div class="card-header bg-success text-white text-uppercase">
-            <i class="fa fa-heart"></i> Top product
+            <i class="bi bi-heart-fill"></i> Top product
         </div>
         <a asp-page="ProductDetail" asp-route-productId="@Model.Id"><img asp-append-version="true" class="img-fluid border-0" src="~/images/product/@Model.ImageFile" alt="Card image cap"></a>
-            <div class="card-body">
-                <h4 class="card-title text-center">
-                    <a asp-page="ProductDetail" asp-route-productId="@Model.Id" title="View Product">
-                        @Model.Name
+        <div class="card-body">
+            <h4 class="card-title text-center">
+                <a asp-page="ProductDetail" asp-route-productId="@Model.Id" title="View Product" class="text-decoration-none">
+                    @Model.Name
+                </a>
+                <span class="fs-6">
+                    <span class="badge bg-danger rounded-pill">$@Model.Price</span>
+                </span>
+            </h4>
+            <div class="row">
+                <div class="col d-grid">
+                    <a asp-page="ProductDetail" asp-route-productId="@Model.Id" class="btn btn-success btn-block">
+                        View
                     </a>
-                    <span class="h6">
-                        <span class="badge badge-danger badge-pill">$@Model.Price</span>
-                    </span>
-                </h4>
-                <div class="row">
-                    <div class="col">
-                        <a asp-page="ProductDetail" asp-route-productId="@Model.Id" class="btn btn-success btn-block">View</a>
-                    </div>
                 </div>
             </div>
+        </div>
     </div>
 </div>

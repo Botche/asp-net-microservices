@@ -4,23 +4,22 @@
     <a asp-page="ProductDetail" asp-route-productId="@Model.Id"><img asp-append-version="true" class="card-img-top" src="~/images/product/@Model.ImageFile" alt=""></a>
     <div class="card-body">
         <h4 class="card-title">
-            <a asp-page="ProductDetail" asp-route-productId="@Model.Id" class="color-main">
+            <a asp-page="ProductDetail" asp-route-productId="@Model.Id" class="color-main text-decoration-none">
                 @Model.Name
             </a>
-            <span class="h6">
-                <span class="badge badge-danger badge-pill">$@Model.Price</span>
+            <span class="fs-6">
+                <span class="badge bg-danger rounded-pill">$@Model.Price</span>
             </span>
         </h4>
         <p class="card-text">@Model.Summary</p>
         <div class="row">
             <div class="col">
-                <form asp-page-handler="AddToCart" method="post" name="addToCartForm" id="add_cart_form">
+                <form asp-page-handler="AddToCart" method="post" name="addToCartForm" id="add_cart_form" class="d-grid">
                     <button type="submit" class="btn btn-success btn-block">
                         Add to Cart
                     </button>
                     <input type="hidden" asp-for="@Model.Id" name="productId" />
                 </form>
-
             </div>
         </div>
     </div>
