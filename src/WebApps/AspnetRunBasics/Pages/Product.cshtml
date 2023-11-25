@@ -2,21 +2,24 @@
 @model AspnetRunBasics.ProductModel
 @{
     ViewData["Title"] = "Product";
+
+    ICollection<Tuple<string, string>> breadcrumbs = new List<Tuple<string, string>>()
+    {
+        new("Index", "Home"),
+        new("Product", "Category"),
+    };
+
+    if (this.Model.SelectedCategory is not null)
+    {
+        Tuple<string, string> selectedCategory = new(
+            string.Empty,
+            this.Model.SelectedCategory
+        );
+        breadcrumbs.Add(selectedCategory);
+    }
 }
 
-<div class="container">
-    <div class="row">
-        <div class="col">
-            <nav aria-label="breadcrumb">
-                <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a asp-page="Index">Home</a></li>
-                    <li class="breadcrumb-item"><a asp-page="Product">Category</a></li>
-                    <li class="breadcrumb-item active" aria-current="page">@Model.SelectedCategory</li>
-                </ol>
-            </nav>
-        </div>
-    </div>
-</div>
+<partial name="_Breadcrumbs" model="breadcrumbs" />
 
 <div class="container">
     <div class="row">
@@ -26,8 +29,8 @@
                 <ul class="list-group category_block">
                     @foreach (var category in Model.CategoryList)
                     {
-                        <a asp-page="Product" asp-route-categoryName="@category">
-                            <li class="list-group-item">@category</li>
+                        <a asp-page="Product" asp-route-categoryName="@category" class="text-decoration-none">
+                        <li class="list-group-item">@category</li>
                         </a>
                     }
                 </ul>

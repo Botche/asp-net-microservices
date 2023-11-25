@@ -11,10 +11,10 @@ body {
 }
 .category_block li:hover {
     background-color: #007bff;
+    color: #ffffff;
 }
 .category_block a:hover {
     text-decoration: none;
-    color: #ffffff;
 }
 .category_block a {
     color: #343a40;

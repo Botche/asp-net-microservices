@@ -1,0 +1,32 @@
+﻿@model IEnumerable<Tuple<string, string>>
+
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb bg-light p-3 rounded-3">
+                    @{
+                        var index = 0;
+                    }
+                    @foreach (var (pageUrl, name) in this.Model)
+                    {
+                        <li class="breadcrumb-item">
+                            @if(pageUrl == string.Empty || index == this.Model.Count() - 1)
+                            {
+                                @name
+                            }
+                            else
+                            {
+                                <a asp-page="@pageUrl" class="text-decoration-none">
+                                    @name
+                                </a>
+                            } 
+                        </li>
+
+                        index++;
+                    }
+                </ol>
+            </nav>
+        </div>
+    </div>
+</div>
