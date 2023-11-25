@@ -2,21 +2,16 @@
 @model AspnetRunBasics.CheckOutModel
 @{
     ViewData["Title"] = "CheckOut";
+
+    IEnumerable<Tuple<string, string>> breadcrumbs = new List<Tuple<string, string>>()
+    {
+        new("Index", "Home"),
+        new("Cart", "Cart"),
+        new(string.Empty, "CheckOut"),
+    };
 }
 
-<div class="container">
-    <div class="row">
-        <div class="col">
-            <nav aria-label="breadcrumb">
-                <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a asp-page="Index">Home</a></li>
-                    <li class="breadcrumb-item"><a asp-page="Cart">Cart</a></li>
-                    <li class="breadcrumb-item active" aria-current="page">CheckOut</li>
-                </ol>
-            </nav>
-        </div>
-    </div>
-</div>
+<partial name="_Breadcrumbs" model="breadcrumbs" />
 
 <div class="container">
     <div class="row">

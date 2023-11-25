@@ -2,20 +2,15 @@
 @model AspnetRunBasics.CartModel
 @{
     ViewData["Title"] = "Cart";
+
+    IEnumerable<Tuple<string, string>> breadcrumbs = new List<Tuple<string, string>>()
+    {
+        new("Index", "Home"),
+        new(string.Empty, "Cart"),
+    };
 }
 
-<div class="container">
-    <div class="row">
-        <div class="col">
-            <nav aria-label="breadcrumb">
-                <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a asp-page="Index">Home</a></li>
-                    <li class="breadcrumb-item active" aria-current="page">Cart</li>
-                </ol>
-            </nav>
-        </div>
-    </div>
-</div>
+<partial name="_Breadcrumbs" model="breadcrumbs" />
 
 <div class="container mb-4">
     <div class="row">

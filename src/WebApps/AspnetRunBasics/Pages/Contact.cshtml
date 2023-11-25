@@ -2,26 +2,16 @@
 @model AspnetRunBasics.ContactModel
 @{
     ViewData["Title"] = "Contact";
+
+    IEnumerable<Tuple<string, string>> breadcrumbs = new List<Tuple<string, string>>()
+    {
+        new("Index", "Home"),
+        new(string.Empty, "Contact"),
+    };
 }
 
-<section class="jumbotron text-center">
-    <div class="container">
-        <h1 class="jumbotron-heading">E-COMMERCE CONTACT</h1>
-        <p class="lead text-muted mb-0">Contact Page build with Bootstrap 4 !</p>
-    </div>
-</section>
-<div class="container">
-    <div class="row">
-        <div class="col">
-            <nav aria-label="breadcrumb">
-                <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-                    <li class="breadcrumb-item active" aria-current="page">Contact</li>
-                </ol>
-            </nav>
-        </div>
-    </div>
-</div>
+<partial name="_Breadcrumbs" model="breadcrumbs" />
+
 <div class="container">
     <div class="row">
         <div class="col">
