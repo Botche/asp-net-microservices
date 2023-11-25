@@ -3,11 +3,11 @@
 @{
     ViewData["Title"] = "ProductDetail";
 
-    IEnumerable<Tuple<string, string>> breadcrumbs = new List<Tuple<string, string>>()
+    IEnumerable<Breadcrumb> breadcrumbs = new List<Breadcrumb>()
     {
         new("Index", "Home"),
         new("Product", "Product"),
-        new(string.Empty, Model.Product.Name),
+        new(Model.Product.Name),
     };
 }
 
@@ -34,17 +34,19 @@
                     <p class="price">@Model.Product.Price $</p>
                     <p class="price_discounted">@(Model.Product.Price + 120) $</p>
                     <form asp-page-handler="AddToCart" method="post" name="addToCartForm" id="add_cart_form">
-                        <div class="form-group">
-                            <label for="colors">Color</label>
-                            <select asp-for="Color" class="custom-select" id="colors">
-                                <option selected>Black</option>
-                                <option value="Blue">Blue</option>
-                                <option value="Red">Red</option>
-                                <option value="Green">Green</option>
-                            </select>
+                        <div class="mb-2">
+                            <label for="colors">Color:</label>
+                            <div class="input-group">
+                                <select asp-for="Color" class="form-select" id="colors">
+                                    <option selected>Black</option>
+                                    <option value="Blue">Blue</option>
+                                    <option value="Red">Red</option>
+                                    <option value="Green">Green</option>
+                                </select>
+                            </div>
                         </div>
-                        <div class="form-group">
-                            <label>Quantity :</label>
+                        <div class="form-group mb-2">
+                            <label>Quantity:</label>
                             <div class="input-group mb-3">
                                 <div class="input-group-prepend">
                                     <button type="button" class="quantity-left-minus btn btn-danger btn-number" data-type="minus" data-field="">
@@ -93,7 +95,7 @@
         <!-- Description -->
         <div class="col-12">
             <div class="card border-light mb-3">
-                <div class="card-header bg-primary text-white text-uppercase"><i class="fa fa-align-justify"></i> Description</div>
+                <div class="card-header bg-primary text-white text-uppercase"><i class="bi bi-list-ul"></i> Description</div>
                 <div class="card-body">
                     <p class="card-text">
                         @Model.Product.Summary
