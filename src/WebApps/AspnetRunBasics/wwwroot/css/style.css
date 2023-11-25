@@ -60,3 +60,7 @@ footer {
 footer a {
     color: #f8f9fa!important
 }
+
+.carousel-control-next, .carousel-control-prev {
+    width: 7%;
+}
